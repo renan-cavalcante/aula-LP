@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author Renan
- *
- */
-module LP {
-}
