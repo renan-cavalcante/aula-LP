@@ -12,7 +12,6 @@ public class LT01_ExRep39 {
         
         for(casa = 1; casa < 64; casa++){
             quantidade = quantidade*2;
-            System.out.println("O numero de grãos é "+quantidade);
         }
         
         System.out.println("O numero de grãos é "+quantidade);
