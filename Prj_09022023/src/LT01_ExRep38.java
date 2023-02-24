@@ -12,7 +12,7 @@ public class LT01_ExRep38 {
         maior = numero;
         menor = numero;
         
-        for(indice = 2; indice <= 5; indice++){
+        for(indice = 2; indice <= 100; indice++){
             numero = Integer.parseInt(JOptionPane.showInputDialog("Digite o "+numero+"° numero"));
             if(numero > maior){
                 maior = numero;
