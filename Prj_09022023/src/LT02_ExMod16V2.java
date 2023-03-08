@@ -17,11 +17,14 @@ public class LT02_ExMod16V2 {
         descendentes = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade de descendentes"));
         PercDesconto = Double.parseDouble(JOptionPane.showInputDialog("Digite o percentual de desconto "));
         
-        CalcularSalarios(  QuantHoras, ValorHora, PercDesconto, descendentes);
+        CalcularSalarios(  QuantHoras, ValorHora, PercDesconto, descendentes); // enviar os valores das variaveis para a procedure
        
     }
     
-    static void CalcularSalarios(double quantHoras,double ValorHora,double PercDesconto,int descendentes ){ //
+static void CalcularSalarios(double quantHoras,double ValorHora,double PercDesconto,int descendentes ){ /*variaveis locais tambem, tem o mesmo 
+        nome das que enviaram o valor, mas são variaveis diferentes, poderiam ter nomes diferentes das anteriores
+        
+        */
         double SalarioBruto, SalarioLiq, Salario;
         SalarioBruto = quantHoras * ValorHora;
         SalarioLiq = SalarioBruto * (1-(PercDesconto/100));

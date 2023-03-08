@@ -7,7 +7,9 @@ import javax.swing.JOptionPane;
     versão 01
  */
 public class LT02_ExMod16 {
-    static double QuantHoras, ValorHora, PercDesconto, SalarioBruto, SalarioLiq, Salario;
+    static double QuantHoras, ValorHora, PercDesconto, SalarioBruto, SalarioLiq, Salario; /* variaveis globais
+    podem ser manipuladas em qualquer lugar do programa
+    */
     static int descendentes;
     public static void main(String [] args){
                 
