@@ -13,21 +13,19 @@ public class LT02_ExMod27 {
         int numeroVoltas;
         double extensaoCircuito, tempoDuracao;     
         
-        System.out.printf("Digite o numero de voltas: %n");
-        numeroVoltas = (int)receberValores();
+        numeroVoltas = (int)receberValores("Digite o numero de voltas: %n");
         
-        System.out.printf("Digite a exxtensão do circuito: %n");
-        extensaoCircuito = receberValores();
+        extensaoCircuito = receberValores("Digite a extensão do circuito: %n");
         
-        System.out.printf("Digite oa duração do percuso em minutos: %n");
-        tempoDuracao = receberValores();
+        tempoDuracao = receberValores("Digite oa duração do percuso em minutos: %n");
         
         System.out.printf("A velocidade media e %s%n", velocidadeMedia(numeroVoltas,extensaoCircuito, tempoDuracao ));
         
     }
     
-    static double receberValores(){
+    static double receberValores(String texto){
        double valor =  ler.nextInt();
+       System.out.printf("%s %n", texto);
         
         return valor;        
     }
