@@ -14,7 +14,7 @@ public class LT02_ExFun38 {
         maior = numero;
         menor = numero;
         
-        for(indice = 2; indice <= 10; indice++){
+        for(indice = 2; indice <= 100; indice++){
             numero = Integer.parseInt(JOptionPane.showInputDialog("Digite o "+indice+"° numero"));
             maior = calcularMaior(numero, maior);
             menor = calcularMenor(numero, menor);
