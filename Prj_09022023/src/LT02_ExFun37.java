@@ -1,12 +1,40 @@
+import javax.swing.JOptionPane;
+
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+    @author: Renan Gama
+    Data criação: 09/03/2023
+    versão 01
  */
 
-/**
- *
- * @author FATEC ZONA LESTE
- */
 public class LT02_ExFun37 {
+    public static void main(String arqs[]){
+        int numero, indice;
+        
+        numero = Integer.parseInt(JOptionPane.showInputDialog("Digite um numero"));
+        indice = 1;
+        
+        System.out.print(" 0,");
+        while(indice < numero){
+            
+            System.out.print( calcularFibonacci(indice)+", ");
+            indice++;
+        }
+    }
     
+    static int calcularFibonacci(int n){
+        int F1 = 0;
+        int F2 = 0;
+        
+        for (int i = 1; i<= n; i++){
+            if ( i == 1){
+                F2 = 1;
+                F1 = 0;
+                
+            }else {
+                F2 += F1;
+                F1 = F2 - F1;
+            }
+        }
+        return F2;
+    }
 }
