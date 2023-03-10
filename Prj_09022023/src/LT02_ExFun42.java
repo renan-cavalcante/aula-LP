@@ -1,12 +1,27 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+    @author: Renan Gama
+    Data criação: 09/03/2023
+    versão 01
  */
 
-/**
- *
- * @author FATEC ZONA LESTE
- */
 public class LT02_ExFun42 {
+    public static void main(String arqs[]){
+        
+        
+        
+        System.out.println("O resultado da série é "+ calcularSerie());
+    }
     
+    static double calcularSerie(){
+        double indice, serie, contador;
+        serie = 1;
+        contador =1;
+        
+        for (indice = 2; indice <= 50; indice++){
+            contador+=2;
+            serie = serie +( indice/contador);
+        }
+        return serie;
+        
+    }
 }
