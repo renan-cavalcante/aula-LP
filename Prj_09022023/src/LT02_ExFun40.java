@@ -14,10 +14,12 @@ public class LT02_ExFun40 {
         
         Numero1 = Integer.parseInt(JOptionPane.showInputDialog("Digite o 1° numero"));
         Numero2 = Integer.parseInt(JOptionPane.showInputDialog("Digite o 2° numero"));
-        
+        verificarMaior();
         
         System.out.println("Os numeros primos entres "+Numero1+" e "+Numero2+ "são: ");
-        for(indice = Numero1; indice < Numero2; indice++){
+        Numero1++;       
+       
+        for(indice = (Numero1); indice < Numero2; indice++){
             contador = 0;
             if(verificarPrimos(contador)){
                 System.out.println(indice);
