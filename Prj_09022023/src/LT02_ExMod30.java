@@ -73,8 +73,7 @@ public class LT02_ExMod30 {
             boolean multiplo400 = i % 400 == 0;
             boolean multiplo4 = i % 4 == 0;
             boolean naoMultiplo100 = i % 100 != 0;
-            
-            System.out.printf("%s ano calculado, %s 400, %s 4, %s 100", i, multiplo400, multiplo4, naoMultiplo100);
+
             if( multiplo4){
                 if(naoMultiplo100){
                     quantidadeAnoBissesxos++;                   

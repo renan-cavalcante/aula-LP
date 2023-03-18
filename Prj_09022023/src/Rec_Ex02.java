@@ -19,10 +19,8 @@ public class Rec_Ex02 {
     
     static int calcularSerie(int numero){
         int serie;
-        int sequencia = 0; 
-        if(numero != sequencia ){
-            serie =  (calcularSerie(numero - 1) - sequencia);
-            sequencia++;
+        if(numero != 0){
+            serie =  numero +calcularSerie(numero - 1) ;
             return serie;
         }else{
             return 0;
