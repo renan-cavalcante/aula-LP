@@ -10,16 +10,19 @@ public class VotacaoService {
 	public static void cadastrarVotacao(int i) {
 		Integer numeroEleitor  = EntradaDeDados.inteiro("Digite seu numero de eleitor: ");
 		Integer secao = EleitorService.secaoDoEleitor(numeroEleitor);
+		
 		for(int j = 0; i < 3; i++) {
 			if(i == 1) {
+				
 				if(secaoValidas[0][j] == secao) {
-					Integer codCandidato  = EntradaDeDados.inteiro("Digite o codigo do seu candidato: ");
 					
+					Integer codCandidato  = EntradaDeDados.inteiro("Digite o codigo do seu candidato: ");
 					votacao[i] = new Votacao(secao, codCandidato, numeroEleitor);
 					
 				}else {
 					System.out.println("Seção invalida");
 				}
+				
 			}else {
 				if(secaoValidas[1][j] == secao) {
 					Integer codCandidato  = EntradaDeDados.inteiro("Digite o codigo do seu candidato: ");
