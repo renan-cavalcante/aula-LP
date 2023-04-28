@@ -1,6 +1,5 @@
 package application;
 
-import entity.Eleitor;
 import service.EleitorService;
 import service.EntradaDeDados;
 import service.VotacaoService;
@@ -9,7 +8,7 @@ public class Menu {
 	public static void main(String[]args) {
 		//Menu menu;
 		int opcao;
-		Eleitor[] eleitores = new Eleitor[10];
+		
 		
 		
 		
@@ -22,24 +21,24 @@ public class Menu {
 						+ "4 - Menu estatística"
 						+ "9 - Fim");
 		
+		int a = (int) Math.random();
 		
+		System.out.println(a);
 		opcao = EntradaDeDados.inteiro("Digite a opção desejada: ");
 		
 		//menu = opcao;
 		switch (opcao) {
 			case 1:
-				eleitores = EleitorService.cadastrarEleitor(eleitores);
+				EleitorService.cadastrarEleitor();
 				break;
 			case 2:
-				
+				VotacaoService.escolherSala();
+				break;
 				
 		}
 		
 	}
 	
-	public static void cadastroVotacao() {
-		int salaVotacao = VotacaoService.escolherSala();
-	}
 
 	
 }
