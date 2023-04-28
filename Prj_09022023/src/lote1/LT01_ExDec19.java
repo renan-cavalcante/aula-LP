@@ -1,4 +1,6 @@
 package lote1;
+import java.util.Scanner;
+
 import javax.swing.JOptionPane;
 /*
     programa: o que ele faz
@@ -9,6 +11,10 @@ import javax.swing.JOptionPane;
 public class LT01_ExDec19 {
     public static void main(String arqs[]){
         double Valor1, Valor2;
+        
+        System.out.println("digite valor 1");
+        Scanner ler = new Scanner(System.in);
+        Valor1 = ler.nextDouble();
         
         Valor1 = Double.parseDouble(JOptionPane.showInputDialog("Digite o primeiro valor"));
         Valor2 = Double.parseDouble(JOptionPane.showInputDialog("Digite o segundo valor"));

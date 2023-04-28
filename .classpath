@@ -2,5 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="Prj_09022023/src"/>
+	<classpathentry kind="src" path="sistemaDeVotacao"/>
 	<classpathentry kind="output" path="Prj_09022023/build/classes"/>
 </classpath>
