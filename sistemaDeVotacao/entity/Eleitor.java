@@ -35,6 +35,14 @@ public class Eleitor {
 		this.secao = secao;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Nome: "
+				+nomeEleitor
+				+"\nNumero Eleitor: "
+				+numeroEleitor
+				+"\nSecao: "
+				+secao;
+	}
 	
 }
