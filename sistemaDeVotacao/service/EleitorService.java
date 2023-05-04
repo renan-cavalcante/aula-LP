@@ -39,17 +39,25 @@ public class EleitorService {
 		do {
 
 			numeroEleitor = EntradaDeDados.inteiro("Digite o numero do eleitor: ");
-			nomeEleitor = EntradaDeDados.string("Digite o nome do eleitor: ");
-			secao = EntradaDeDados.inteiro("Digite a se�a� do eleitor: ");
-			eleitores[i] = new Eleitor(numeroEleitor, nomeEleitor, secao);
-			i++;
-			System.out.println("Cadastrar mais um eleitor? (S/N): ");
-			String leitura = ler.next();
-			continuar = leitura.equals("s") ? true : false;
+			if(buscarEleitorPorNumeroEleitor(numeroEleitor) == null) {
+				nomeEleitor = EntradaDeDados.string("Digite o nome do eleitor: ");
+				secao = EntradaDeDados.inteiro("Digite a se�a� do eleitor: ");
+				eleitores[i] = new Eleitor(numeroEleitor, nomeEleitor, secao);
+				i++;
+				System.out.println("Cadastrar mais um eleitor? (S/N): ");
+				String leitura = ler.next();
+				continuar = leitura.equals("s") ? true : false;
+			}else {
+				System.out.println("Numero de eleitor ja cadastrado");
+				continuar = true;
+			}
+			
+		
 			
 		} while (i < 9 && continuar);
 
 	}
+	
 
 	public static Integer secaoDoEleitor(int numeroEleitor) {
 		for (Eleitor eleitor : eleitores) {

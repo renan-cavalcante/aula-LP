@@ -9,7 +9,6 @@ public class Eleitor {
 	}
 
 	public Eleitor(Integer numeroEleitor, String nomeEleitor, Integer secao) {
-		super();
 		this.numeroEleitor = numeroEleitor;
 		this.nomeEleitor = nomeEleitor;
 		this.secao = secao;
