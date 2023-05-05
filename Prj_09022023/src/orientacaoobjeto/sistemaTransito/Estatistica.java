@@ -1,24 +1,24 @@
 package orientacaoobjeto.sistemaTransito;
 
 public class Estatistica {
-    int codigoCidade;
+    Integer codigoCidade;
     String NomeCidade;
-    int QtdAcidentes;
+    Integer QtdAcidentes;
 
     public Estatistica(){
     }
     
-    public Estatistica(int codigoCidade, String NomeCidade, int QtdAcidentes) {
+    public Estatistica(Integer codigoCidade, String NomeCidade, Integer QtdAcidentes) {
         this.codigoCidade = codigoCidade;
         this.NomeCidade = NomeCidade;
         this.QtdAcidentes = QtdAcidentes;
     }
 
-	public int getCodigoCidade() {
+	public Integer getCodigoCidade() {
 		return codigoCidade;
 	}
 
-	public void setCodigoCidade(int codigoCidade) {
+	public void setCodigoCidade(Integer codigoCidade) {
 		this.codigoCidade = codigoCidade;
 	}
 
@@ -30,14 +30,22 @@ public class Estatistica {
 		NomeCidade = nomeCidade;
 	}
 
-	public int getQtdAcidentes() {
+	public Integer getQtdAcidentes() {
 		return QtdAcidentes;
 	}
 
-	public void setQtdAcidentes(int qtdAcidentes) {
+	public void setQtdAcidentes(Integer qtdAcidentes) {
 		QtdAcidentes = qtdAcidentes;
 	}
     
+	@Override
+	public String toString() {
+		return codigoCidade
+				+","
+				+NomeCidade
+				+","
+				+QtdAcidentes;
+	}
     
     
 }

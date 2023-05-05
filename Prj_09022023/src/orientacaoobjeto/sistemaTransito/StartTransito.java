@@ -1,50 +1,59 @@
 package orientacaoobjeto.sistemaTransito;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class StartTransito {
-    public static void main(String[]args){
-        try (Scanner ler = new Scanner(System.in)) {
-			ServerEstatistica server = new ServerEstatistica();
-			int opcao;
-			boolean continuar = true;
-			Estatistica[] estatisticas = new Estatistica[10];
+	private static Scanner ler = new Scanner(System.in);
+
+	public static void main(String[] args) throws IOException {
+		int opcao = 1;
+ 
+
+		boolean continuar = true;
+
+		do {
+
+			System.out.println("	MENU ESTATÍSTICA	               	|\n"
+					+ "| Estatíticas de acidentes em 2020		|\n" + "| 1 - Cadastro EstatÃ­stica			|\n"
+					+ "| 2 - Consulta por quantidade de acidentes	|\n"
+					+ "| 3 - Consulta por estatísticas de acidentes	|\n"
+					+ "| 4 - Acidentes acima da média das 10 cidades   |\n" + "| 9 - Finaliza ");
+			System.out.println("Digite a opção desejada:");
 			
-				
-			do{
-			    System.out.println("Digite a opÃ§Ã£o desejada:");
-			    System.out.println("	MENU ESTATÃ�STICA	               	|\n" +
-			    "| EstatÃ­sticas de acidentes em 2020		|\n" +
-			    "| 1 - Cadastro EstatÃ­stica			|\n" +
-			    "| 2 - Consulta por quantidade de acidentes	|\n" +
-			    "| 3 - Consulta por estatÃ­sticas de acidentes	|\n" +
-			    "| 4 - Acidentes acima da mÃ©dia das 10 cidades   |\n" +
-			    "| 9 - Finaliza ");
-			    opcao = ler.nextInt();
-			    switch (opcao){
-			    case 1:
-			        server.cadastrarEstatisticas(estatisticas);
-			        break; 
-			    case 2:
-			        server.consultarPorQntdAcidentes(estatisticas);
-			        break;
-			    case 3:
-			        server.consultarMaisMenosAcidentes(estatisticas);
-			        break;
-			    case 4:
-			        server.cidadesAcimaDaMedia(estatisticas);
-			        break;
-			    case 9:
-			        System.out.println("Sistema finalizado");
-			        continuar = false;
-			        break;
-			    default:
-			        System.out.println("OpÃ§Ã£o invalida");
-			     
-			        
-			    }
-			}while(continuar);
-		}
-        
-    }
+			
+
+			opcao = ler.nextInt();
+
+			switch (opcao) {
+			case 1:
+				ServerEstatistica.cadastrarEstatisticas();
+				opcao = 9;
+				break;
+			case 2:
+				ServerEstatistica.consultarPorQntdAcidentes();
+				break;
+			case 3:
+				ServerEstatistica.consultarMaisMenosAcidentes();
+				break;
+			case 4:
+				ServerEstatistica.cidadesAcimaDaMedia();
+				break;
+			case 9:
+				System.out.println("Sistema finalizado");
+				continuar = false;
+				break;
+			default:
+				System.out.println("Opção invalida");
+
+			}
+			
+
+		} while (continuar);
+
+		
+	}
+
+
+	
 }

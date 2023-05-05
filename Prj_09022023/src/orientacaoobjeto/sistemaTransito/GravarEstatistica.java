@@ -2,50 +2,66 @@ package orientacaoobjeto.sistemaTransito;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import javax.swing.JOptionPane;
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class GravarEstatistica {
-	
-	public void GravaEstatistica(Estatistica[ ] estatisticas ) throws IOException {	
-		
-	      int i;  String fileName = "ArquivoAluno.txt";	
-	      BufferedWriter gravar = new BufferedWriter(new FileWriter( fileName ));	
-	      
-	      for(Estatistica linha : estatisticas) {
-	    	  gravar.write(Integer.toString(linha.getCodigoCidade()) );
-	    	  gravar.newLine();
-	    	  gravar.write( linha.getNomeCidade());
-	    	  gravar.newLine();
-	    	  gravar.write(Integer.toString(linha.getQtdAcidentes()) );
-	    	  gravar.newLine();
-	      }
 
-	     System.out.println("GRAVA«√O FEITA COM SUCESSO ");	
-	     gravar.close();
-	  }	
+	public File caminhoDoArquivo() throws IOException {
+		File nomeArquivo = new File(System.getProperty("user.dir") + "\\Estatisticas.csv");
+		if (!nomeArquivo.exists()) {
+			FileWriter criarArquivo = new FileWriter(nomeArquivo);
+			criarArquivo.close();
+		}
+		return nomeArquivo;
+	}
+
+	public void GravaEstatistica(Estatistica[] estatisticas) throws IOException {
+
+		File nomeArquivo = caminhoDoArquivo();
+
+		try (BufferedWriter gravar = new BufferedWriter(new FileWriter(nomeArquivo, true))) {
+			for (Estatistica linha : estatisticas) {
+				if (linha != null) {
+					gravar.write(linha.toString());
+					gravar.newLine();
+
+				}
+
+			}
+			System.out.println(nomeArquivo.getPath());
+			System.out.println("GRAVA√á√ÉO FEITA COM SUCESSO ");
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+
+	}
+
+	public List<Estatistica> LerEstatisticas() throws IOException {
 	
-	   public Estatistica[ ] LerEstatisticas ( ) throws IOException	 {	
-	     int i;	
-	    String fileName = "ArquivoAluno.txt";	
-	    BufferedReader ler = new BufferedReader(new FileReader( fileName ));	
-	    Estatistica estatisticas = new Estatistica();
-	   
-	    for (i = 0 ; i < 3 ; i++)   {	
-	           = ler.readLine();  	
-	          aluno[i].unome = ler.readLine();	
-	          aluno[i].pontos = Integer.parseInt(ler.readLine());    }	
-	  	
-	    for (i = 0 ; i < 3; i++) {	
-	          System.out.println(aluno[i].pnome + " " + aluno[i].unome + " pontos: " + 
-	                                                                                                             aluno[i].pontos);   }
-	     ler.close();	
-	  }	
+		
+		File nomeArquivo = caminhoDoArquivo();
+
+		List<Estatistica> estatisticas = new ArrayList<>();
+		try (BufferedReader ler = new BufferedReader(new FileReader(nomeArquivo))) {
+			String linha = ler.readLine();
+			while (linha != null) {
+				String[] conteudo = linha.split(",");
+				Estatistica Novaestatistica = new Estatistica(Integer.parseInt(conteudo[0]), conteudo[1],
+						Integer.parseInt(conteudo[2]));
+				estatisticas.add(Novaestatistica);
+				
+				linha = ler.readLine();
+			}
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		} 
+		return estatisticas;
+
 	}
 
 }
