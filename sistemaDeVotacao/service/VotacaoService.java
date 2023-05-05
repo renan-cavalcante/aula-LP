@@ -27,21 +27,21 @@ public class VotacaoService {
 
 	}
 
-	private static void cadastrarVotacao(int sala, Votacao[] votacao, Integer contVotacao) {
+	private static Integer cadastrarVotacao(int sala, Votacao[] votacao, Integer contVotacao) {
 
 		Integer numeroEleitor = EntradaDeDados.inteiro("Digite seu numero de eleitor: ");
 		Integer secao = EleitorService.secaoDoEleitor(numeroEleitor);
 		boolean validacao = false, jaVoltou = false;
 
-		for (Votacao voto : votacao) {
-			if (voto != null) {
-				if (voto.getNumeroEleitor() == numeroEleitor) {
+		for (int i = 0; i < votacao.length; i++) {
+			if (votacao[i] != null) {
+				if (votacao[i].getNumeroEleitor() == numeroEleitor) {// verifica se ja votou
 					System.out.println("Você ja votou");
 					jaVoltou = true;
 
 				} else {
 
-					validacao = true;
+					validacao = true; //
 				}
 			} else {
 				if (!jaVoltou) {
@@ -51,12 +51,13 @@ public class VotacaoService {
 
 		}
 		if (validacao) {
-			salvarVotacao2(sala, secao, votacao, numeroEleitor, contVotacao);
+			return salvarVotacao2(sala, secao, votacao, numeroEleitor, contVotacao);
 		}
+		return contVotacao;
 
 	}
 
-	private static void salvarVotacao2(int sala, int secao, Votacao[] votacao, int numeroEleitor, Integer contVotacao) {
+	private static Integer salvarVotacao2(int sala, int secao, Votacao[] votacao, int numeroEleitor, Integer contVotacao) {
 		boolean teste = false;
 		for (int j = 0; j < 3; j++) {
 			if (secaoValidas[sala][j] == secao) {
@@ -82,9 +83,11 @@ public class VotacaoService {
 				}
 			}
 		}
+		return contVotacao;
 	}
-
-	private static void salvarVotacao(int sala, int secao, Votacao[] votacao, int numeroEleitor) {
+	
+/*
+	public static void salvarVotacao(int sala, int secao, Votacao[] votacao, int numeroEleitor) {
 		boolean teste = false;
 		for (int j = 0; j < 3; j++) {
 			if (secaoValidas[sala][j] == secao) {
@@ -126,7 +129,7 @@ public class VotacaoService {
 			}
 		}
 	}
-
+*/
 	public static void messagemVotacaoFinalizada(int codCandidato) {
 
 		if (!candidatoNaoNulo(codCandidato)) {
@@ -177,10 +180,12 @@ public class VotacaoService {
 			sala = EntradaDeDados.inteiro("1 - sala 1 \n" + " 2 -  sala 2\n" + "9 - Voltar tela anterior\n");
 			switch (sala) {
 			case 1:
-				cadastrarVotacao(0, votacao1, contVotacao1);
+				votacao1[contVotacao1] = new Votacao();
+				contVotacao1 = cadastrarVotacao(0, votacao1, contVotacao1);				
 				break;
 			case 2:
-				cadastrarVotacao(1, votacao2, contVotacao2);
+				votacao2[contVotacao2] = new Votacao();
+				contVotacao2 = cadastrarVotacao(1, votacao2, contVotacao2);
 				break;
 			case 9:
 

@@ -13,6 +13,30 @@ public class Estatistica {
         this.NomeCidade = NomeCidade;
         this.QtdAcidentes = QtdAcidentes;
     }
+
+	public int getCodigoCidade() {
+		return codigoCidade;
+	}
+
+	public void setCodigoCidade(int codigoCidade) {
+		this.codigoCidade = codigoCidade;
+	}
+
+	public String getNomeCidade() {
+		return NomeCidade;
+	}
+
+	public void setNomeCidade(String nomeCidade) {
+		NomeCidade = nomeCidade;
+	}
+
+	public int getQtdAcidentes() {
+		return QtdAcidentes;
+	}
+
+	public void setQtdAcidentes(int qtdAcidentes) {
+		QtdAcidentes = qtdAcidentes;
+	}
     
     
     

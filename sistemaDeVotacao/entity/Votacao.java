@@ -5,6 +5,10 @@ public class Votacao {
 	private Integer codCandidato;
 	private Integer numeroEleitor;
 	
+	public Votacao() {
+		
+	}
+	
 	public Votacao(Integer secao, Integer codCandidato, Integer numeroEleitor) {
 		this.secao = secao;
 		this.codCandidato = codCandidato;

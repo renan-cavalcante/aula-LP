@@ -12,19 +12,19 @@ public class StartTransito {
 			
 				
 			do{
-			    System.out.println("Digite a opção desejada:");
-			    System.out.println("	MENU ESTATÍSTICA	               	|\n" +
-			    "| Estatísticas de acidentes em 2020		|\n" +
-			    "| 1 - Cadastro Estatística			|\n" +
+			    System.out.println("Digite a opÃ§Ã£o desejada:");
+			    System.out.println("	MENU ESTATÃ�STICA	               	|\n" +
+			    "| EstatÃ­sticas de acidentes em 2020		|\n" +
+			    "| 1 - Cadastro EstatÃ­stica			|\n" +
 			    "| 2 - Consulta por quantidade de acidentes	|\n" +
-			    "| 3 - Consulta por estatísticas de acidentes	|\n" +
-			    "| 4 - Acidentes acima da média das 10 cidades   |\n" +
+			    "| 3 - Consulta por estatÃ­sticas de acidentes	|\n" +
+			    "| 4 - Acidentes acima da mÃ©dia das 10 cidades   |\n" +
 			    "| 9 - Finaliza ");
 			    opcao = ler.nextInt();
 			    switch (opcao){
 			    case 1:
 			        server.cadastrarEstatisticas(estatisticas);
-			        break;
+			        break; 
 			    case 2:
 			        server.consultarPorQntdAcidentes(estatisticas);
 			        break;
@@ -39,7 +39,7 @@ public class StartTransito {
 			        continuar = false;
 			        break;
 			    default:
-			        System.out.println("Opção invalida");
+			        System.out.println("OpÃ§Ã£o invalida");
 			     
 			        
 			    }

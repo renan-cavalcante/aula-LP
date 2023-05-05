@@ -10,8 +10,11 @@ public class ServerEstatistica {
 			for(int i =0; i < 10; i++){
 			    System.out.println("Digite o codigo da cidade:");
 			    int codigoCidade = ler.nextInt();
+			    ler.nextLine();
+			    
 			    System.out.println("Digite o nome da cidade:");
-			    String nomeCidade = ler.next();
+			    String nomeCidade = ler.nextLine();
+			    
 			    System.out.println("Digite a quantidade de acidentes:");
 			    int qntdAcidentes = ler.nextInt();
 			    

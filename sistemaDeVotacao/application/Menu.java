@@ -6,7 +6,7 @@ import service.EleitorService;
 import service.EntradaDeDados;
 import service.VotacaoService;
 import service.candidatoService;
-import teste.Teste;
+//import teste.Teste;
 
 public class Menu {
 	private static Scanner ler = new Scanner(System.in);
@@ -25,12 +25,12 @@ public class Menu {
 			System.out.println("      MENU PRINCIPAL");
 			System.out.println("---------------------------\n");
 			System.out.println("1 - Cadastrar elitor\n"
-							+ "2 - Cadastrar votaï¿½ï¿½o 1 e 2\n"
-							+ "3 - Agrupar apuraï¿½ï¿½o\n"
-							+ "4 - Menu estatï¿½stica\n"
+							+ "2 - Cadastrar votação 1 e 2\n"
+							+ "3 - Agrupar apuração\n"
+							+ "4 - Menu estatística\n"
 							+ "9 - Fim\n");
 			
-			System.out.println("Digite a opï¿½ï¿½o desejada: "); 
+			System.out.println("Digite a opção desejada: "); 
 			opcao = ler.nextInt();
 			
 			switch (opcao) {
@@ -56,7 +56,7 @@ public class Menu {
 				menuEstatisticas();
 				break;
 			default: 
-				System.out.println("OpÃ§aÃµ invalida");
+				System.out.println("opção invalida");
 			}
 		
 		}while(opcao != 9);
@@ -67,17 +67,17 @@ public class Menu {
 		int opcao;
 		do {
 			System.out.println("......................................................       \r\n"
-					+ ".    MENU ESTATÃ�STICA                  .       \r\n"
+					+ ".    MENU ESTAÍSTICA                  .       \r\n"
 					+ "......................................................       \r\n"
 					+ ". 1 - Vencedor                                    .                                \r\n"
 					+ ". 2 - Segundo colocado                         .        \r\n"
 					+ "  3 - Quantidade de votos em branco                  .       \r\n"
 					+ ". 4 - Quantidade de votos nulos                      .       \r\n"
 					+ ". 5 - Mostra eleitores                               .\r\n"
-					+ ". 6 - Mostra apuraÃ§Ã£o                               .\r\n"
+					+ ". 6 - Mostra apuração                               .\r\n"
 					+ ". 9 - FIM                                            \r\n"
 					+ "");
-			opcao = EntradaDeDados.inteiro("Digite a opï¿½ï¿½o desejada: ");
+			opcao = EntradaDeDados.inteiro("Digite a opção desejada: ");
 			
 			switch (opcao) {
 				case 1:
@@ -86,13 +86,19 @@ public class Menu {
 				case 4:
 						
 					VotacaoService.exibirResultados(opcao-1);
+					System.out.println("Digite entre para continuar...");
+					ler.nextLine();
 					break;
 					
 				case 5: 
 					VotacaoService.exibirEleitores();
+					System.out.println("Digite entre para continuar...");
+					ler.nextLine();
 					break;
 				case 6:
 					VotacaoService.exibirApuracao();
+					System.out.println("Digite entre para continuar...");
+					ler.nextLine();
 					break;
 				default:
 					System.out.println("OpÃ§Ã£o invalida");
