@@ -9,6 +9,7 @@ public class Candidato {
 	public Candidato(String nome, Integer codigoCandidato) {
 		this.nome = nome;
 		this.codigoCandidato = codigoCandidato;
+		this.QuantidadeDeVotos = 0;
 	}
 
 	public Candidato(Candidato candidato, Integer votos) {
@@ -60,6 +61,10 @@ public class Candidato {
 				+"\nVotos:  "
 				+QuantidadeDeVotos;
 				
+	}
+	
+	public String toStringCSV() {
+		return nome+","+codigoCandidato+","+QuantidadeDeVotos;
 	}
 	
 	

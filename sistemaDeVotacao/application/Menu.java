@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import service.EleitorService;
@@ -28,21 +29,23 @@ public class Menu {
 							+ "2 - Cadastrar votação 1 e 2\n"
 							+ "3 - Agrupar apuração\n"
 							+ "4 - Menu estatística\n"
+							+ "5 - Excluir dados\n"
 							+ "9 - Fim\n");
 			
 			System.out.println("Digite a opção desejada: "); 
 			opcao = ler.nextInt();
+			clear();
 			
 			switch (opcao) {
 			case 0:
-				//Teste.cadastrarCandidato();
-				//candidatoService.cadastrarCandidato();
-				candidatoService.testCadastrarCandidato();
+				
+				candidatoService.cadastrarCandidato();
+		
 				break;
 			case 1:
 				//Teste.cadastrarEleitor();
-				//EleitorService.cadastrarEleitor();
-				EleitorService.testeCadastrarEleitor();
+				EleitorService.cadastrarEleitor();
+				
 				break;
 			case 2:
 				VotacaoService.escolherSala();
@@ -54,6 +57,9 @@ public class Menu {
 				break;
 			case 4:
 				menuEstatisticas();
+				break;
+			case 5:
+				menuExclusão();
 				break;
 			default: 
 				System.out.println("opção invalida");
@@ -78,14 +84,27 @@ public class Menu {
 					+ ". 9 - FIM                                            \r\n"
 					+ "");
 			opcao = EntradaDeDados.inteiro("Digite a opção desejada: ");
+			clear();
 			
 			switch (opcao) {
 				case 1:
+					VotacaoService.exibirResultados(opcao+1);
+					System.out.println("Digite entre para continuar...");
+					ler.nextLine();
+					break;
 				case 2:
+					VotacaoService.exibirResultados(opcao+1);
+					System.out.println("Digite entre para continuar...");
+					ler.nextLine();
+					break;
 				case 3:
+					VotacaoService.exibirResultados(0);
+					System.out.println("Digite entre para continuar...");
+					ler.nextLine();
+					break;
 				case 4:
 						
-					VotacaoService.exibirResultados(opcao-1);
+					VotacaoService.exibirResultados(1);
 					System.out.println("Digite entre para continuar...");
 					ler.nextLine();
 					break;
@@ -106,6 +125,62 @@ public class Menu {
 			}
 			
 		}while(opcao != 9);
+	}
+	
+	public static void menuExclusão()  {
+		int opcao;
+		do {
+			System.out.println("......................................................       \r\n"
+					+ ".    MENU EXCLUSÃO                 .       \r\n"
+					+ "......................................................       \r\n"
+					+ ". 1 - Excluir Votações                                    .                                \r\n"
+					+ ". 2 - Excluir Candidatos                       .        \r\n"
+					+ "  3 - Excluir eleitores                 .       \r\n"
+					+ ". 9 - FIM                                            \r\n"
+					+ "");
+			opcao = EntradaDeDados.inteiro("Digite a opção desejada: ");
+			clear();
+			
+			switch (opcao) {
+				case 1:
+					try{
+						VotacaoService.excluirVotacao();
+					}catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				case 2:
+					try {
+						candidatoService.excluirCandidatos();
+					}catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					
+					break;
+				case 3:
+					try {
+						EleitorService.excluirVotacao();
+					}catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					
+					break;
+				default:
+					System.out.println("Opção invalida");
+				
+			}
+			
+		}while(opcao != 9);
+		
+	}
+	
+	public static void clear(){
+		for(int i = 0; i <=20; i++) {
+			System.out.println("\n");
+		}
+		
 	}
 
 }

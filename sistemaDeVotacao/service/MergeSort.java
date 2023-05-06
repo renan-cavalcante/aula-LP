@@ -1,53 +1,92 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import entity.Candidato;
 import entity.Votacao;
 
 public class MergeSort {
-	
-	public static Votacao[] mergeSort(Votacao[] vetor1, Votacao[] vetor2) {
-		
-		int j = 0;
-		
-		Votacao[] vetorAgrupado = new Votacao[ultimaCasaVetor(vetor1) + ultimaCasaVetor(vetor2)];
-		for(int k = 0; k < ultimaCasaVetor(vetor1) + ultimaCasaVetor(vetor2); k++ ) {
-			if(vetor1[k]==null) {
-				vetorAgrupado[k] = vetor2[j];
-				j++;
-			}else {
-				vetorAgrupado[k] = vetor1[k];
-			}
-			
+
+	public static List<Votacao> mergeSort(List<Votacao> vetor1, List<Votacao> vetor2) {
+
+		List<Votacao> vetorAgrupado = new ArrayList<>();
+		for (int k = 0; k < vetor1.size(); k++) {
+
+			vetorAgrupado.add(vetor1.get(k));
+
 		}
-		
-		
-		return mergeSort(vetorAgrupado.length, vetorAgrupado);
+		for (int k = 0; k < vetor2.size(); k++) {
+
+			vetorAgrupado.add(vetor2.get(k));
+
+		}
+
+		int tamanho = ultimaCasaVetor(conveterParaVetor(vetorAgrupado));
+
+		return conveterParaList(mergeSort(tamanho, conveterParaVetor(vetorAgrupado)));
+	}
+
+	public static Votacao[] conveterParaVetor(List<Votacao> votacao) {
+		Votacao[] votacaoV = new Votacao[votacao.size()];
+		int i = 0;
+
+		for (Votacao voto : votacao) {
+			votacaoV[i] = new Votacao(voto.getSecao(), voto.getCodCandidato(), voto.getNumeroEleitor());
+			i++;
+		}
+
+		return votacaoV;
 	}
 	
+	public static Candidato[] conveterParaVetor2(List<Candidato> votacao) {
+		Candidato[] votacaoV = new Candidato[votacao.size()];
+		int i = 0;
+
+		for (Candidato voto : votacao) {
+			votacaoV[i] = new Candidato(voto.getNome(), voto.getCodigoCandidato(), voto.getQuantidadeDeVotos());
+			i++;
+		}
+
+		return votacaoV;
+	}
+
+	public static List<Votacao> conveterParaList(Votacao[] votacao) {
+
+		List<Votacao> votacaoV = new ArrayList<>();
+
+		for (Votacao voto : votacao) {
+			votacaoV.add(voto);
+
+		}
+
+		return votacaoV;
+	}
+
 	public static int ultimaCasaVetor(Votacao[] vetor) {
 		int cont = 0;
-		for(Votacao index: vetor) {
-			if(index != null) {
+		for (Votacao index : vetor) {
+			if (index != null) {
 				cont++;
-			}else {
+			} else {
 				return cont;
 			}
 		}
 		return cont;
 	}
-	
+
 	public static int ultimaCasaVetor(Candidato[] vetor) {
 		int cont = 0;
-		for(Candidato index: vetor) {
-			if(index != null) {
+		for (Candidato index : vetor) {
+			if (index != null) {
 				cont++;
-			}else {
+			} else {
 				return cont;
 			}
 		}
 		return cont;
 	}
-	
+
 	public static Votacao[] mergeSort(int tamanho, Votacao[] vetor) {
 		/*
 		 * Variavel utilizada para percorrer o vetor. Inicializa com 1 para indicar que
@@ -92,7 +131,7 @@ public class MergeSort {
 			elementos = elementos * 2;
 		}
 		return vetor;
-		
+
 	}
 
 	private static Votacao[] intercala(Votacao[] vetor, int inicio, int meio, int fim) {
@@ -152,6 +191,5 @@ public class MergeSort {
 		}
 		return vetor;
 	}
-
 
 }

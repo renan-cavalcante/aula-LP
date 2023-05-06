@@ -44,4 +44,12 @@ public class Eleitor {
 				+secao;
 	}
 	
+	public String toStringCSV() {
+		return  +numeroEleitor
+				+","
+				+nomeEleitor				
+				+","
+				+secao;
+	}
+	
 }

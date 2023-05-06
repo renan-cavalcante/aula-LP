@@ -1,5 +1,10 @@
 package service;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import application.Menu;
 import entity.Candidato;
 import entity.Votacao;
 
@@ -7,11 +12,12 @@ public class VotacaoService {
 
 	private static Votacao[] votacao1 = new Votacao[10];
 	private static Votacao[] votacao2 = new Votacao[10];
-	private static Votacao[] apuracao = new Votacao[20];
+	private static List<Votacao> apuracao = new ArrayList<>();
 	private static int[][] secaoValidas = { { 1, 2, 5 }, { 20, 30, 50 } };
+	private static IO io = new IO();
 
 	private static Integer contVotacao1 = 0, contVotacao2 = 0;
-	private static Candidato[] resultado = new Candidato[4];
+	private static Candidato[] resultado = MergeSort.conveterParaVetor2(io.LerDadosCandidatos("candidatos.csv"));
 
 	public static void testeCadastrarVotacao() {
 		votacao1[0] = new Votacao(01, 1, 123);
@@ -27,54 +33,64 @@ public class VotacaoService {
 
 	}
 
-	private static Integer cadastrarVotacao(int sala, Votacao[] votacao, Integer contVotacao) {
+	private static Integer cadastrarVotacao(int sala, Integer contVotacao) {
 
+		System.out.println("---------------------------\r\n" + "         Sala" + (sala + 1) + "\r\n"
+				+ "---------------------------\r\n");
 		Integer numeroEleitor = EntradaDeDados.inteiro("Digite seu numero de eleitor: ");
 		Integer secao = EleitorService.secaoDoEleitor(numeroEleitor);
-		boolean validacao = false, jaVoltou = false;
+		boolean validacao = false, jaVotou = false;
 
-		for (int i = 0; i < votacao.length; i++) {
-			if (votacao[i] != null) {
-				if (votacao[i].getNumeroEleitor() == numeroEleitor) {// verifica se ja votou
+		if (io.LerDadosVotacao("votacao" + (sala + 1) + ".csv").size() == 0) {
+			validacao = true;
+		}
+
+		for (Votacao voto : io.LerDadosVotacao("votacao" + (sala + 1) + ".csv")) {
+			if (voto != null) {
+				if (voto.getNumeroEleitor() == numeroEleitor) {// verifica se ja votou
 					System.out.println("Você ja votou");
-					jaVoltou = true;
+					jaVotou = true;
 
 				} else {
 
 					validacao = true; //
 				}
 			} else {
-				if (!jaVoltou) {
+				if (!jaVotou) {
 					validacao = true;
 				}
 			}
 
 		}
-		if (validacao) {
-			return salvarVotacao2(sala, secao, votacao, numeroEleitor, contVotacao);
+		if (validacao && !jaVotou) {
+			return salvarVotacao(sala, secao, numeroEleitor, contVotacao);
 		}
 		return contVotacao;
 
 	}
 
-	private static Integer salvarVotacao2(int sala, int secao, Votacao[] votacao, int numeroEleitor, Integer contVotacao) {
+	private static Integer salvarVotacao(int sala, int secao, int numeroEleitor, Integer contVotacao) {
 		boolean teste = false;
+		String confirmacao;
 		for (int j = 0; j < 3; j++) {
 			if (secaoValidas[sala][j] == secao) {
 				teste = true;
 
-				if (contVotacao < votacao.length) {
-					Integer codCandidato = EntradaDeDados.inteiro("Digite o codigo do seu candidato: ");
-					votacao[contVotacao] = new Votacao(secao, codCandidato, numeroEleitor);
-					contVotacao++;
-					messagemVotacaoFinalizada(codCandidato);
+				if (contVotacao < 10) {
+					Integer codCandidato;
+					do {
+						codCandidato = EntradaDeDados.inteiro("Digite o codigo do seu candidato: ");
+						messagemVotacaoFinalizada(codCandidato);
+						confirmacao = EntradaDeDados.string("");
 
-					if (contVotacao >= 9) {
-						MergeSort.mergeSort(10, votacao);
-					}
+					} while (!confirmacao.equalsIgnoreCase("s"));
+
+					Votacao votacao = new Votacao(secao, codCandidato, numeroEleitor);
+					io.gravarDados(votacao.toStringCSV(), "votacao" + (sala + 1) + ".csv");
+					Menu.clear();
 
 				} else {
-					System.out.println("Limite de votos da sala 1 atingido");
+					System.out.println("Limite de votos da sala atingido");
 				}
 
 			} else {
@@ -85,112 +101,38 @@ public class VotacaoService {
 		}
 		return contVotacao;
 	}
-	
-/*
-	public static void salvarVotacao(int sala, int secao, Votacao[] votacao, int numeroEleitor) {
-		boolean teste = false;
-		for (int j = 0; j < 3; j++) {
-			if (secaoValidas[sala][j] == secao) {
-				teste = true;
-				if (sala == 0) {
-					if (contVotacao1 < votacao.length) {
-						Integer codCandidato = EntradaDeDados.inteiro("Digite o codigo do seu candidato: ");
-						votacao1[contVotacao1] = new Votacao(secao, codCandidato, numeroEleitor);
-						contVotacao1++;
-						messagemVotacaoFinalizada(codCandidato);
 
-						if (contVotacao1 >= 9) {
-							MergeSort.mergeSort(10, votacao1);
-						}
-
-					} else {
-						System.out.println("Limite de votos da sala 1 atingido");
-					}
-				} else {
-					if (contVotacao2 < votacao.length) {
-						Integer codCandidato = EntradaDeDados.inteiro("Digite o codigo do seu candidato: ");
-						votacao2[contVotacao2] = new Votacao(secao, codCandidato, numeroEleitor);
-						contVotacao2++;
-						messagemVotacaoFinalizada(codCandidato);
-
-						if (contVotacao2 >= 9) {
-							MergeSort.mergeSort(10, votacao2);
-						}
-
-					} else {
-						System.out.println("Limite de votos da sala 2 atingido");
-					}
-				}
-
-			} else {
-				if (j == 2 && !teste) {
-					System.out.println("Essa não é sua sala");
-				}
-			}
-		}
-	}
-*/
 	public static void messagemVotacaoFinalizada(int codCandidato) {
 
 		if (!candidatoNaoNulo(codCandidato)) {
-			System.out.println("VocÊ votou nulo");
+			System.out.println("voto nulo \r \nDigite S para confirmar ou N para digitar novamente");
 		} else if (codCandidato == 0) {
-			System.out.println("Você votou em branco");
+			System.out.println("votou em branco \r\nDigite S para confirmar ou N para digitar novamente");
 		} else {
-			System.out.println("você votou em " + (candidatoService.buscarCandidatoPorCodigo(codCandidato)).getNome());
+			System.out.println("votou em " + (candidatoService.buscarCandidatoPorCodigo(codCandidato)).getNome()
+					+ " \\r\\nDigite S para confirmar ou N para digitar novamente");
 		}
 	}
-	/*
-	 * public static void cadastrarVotacao(int i) {
-	 * 
-	 * Integer numeroEleitor =
-	 * EntradaDeDados.inteiro("Digite seu numero de eleitor: "); Integer secao =
-	 * EleitorService.secaoDoEleitor(numeroEleitor);
-	 * 
-	 * for (int j = 0; j < 3; j++) { if (i == 1) {
-	 * 
-	 * if (secaoValidas[0][j] == secao) { if (contVotacao1 > 9) {
-	 * System.out.println("Limite de votos da sala 1 atingido"); } else { Integer
-	 * codCandidato = EntradaDeDados.inteiro("Digite o codigo do seu candidato: ");
-	 * votacao1[contVotacao1] = new Votacao(secao, codCandidato, numeroEleitor);
-	 * contVotacao1++; escolherSala(); if (contVotacao1 >= 9) {
-	 * MergeSort.mergeSort(10, votacao1); }
-	 * 
-	 * }
-	 * 
-	 * } else { System.out.println("Se��o invalida"); }
-	 * 
-	 * } else if (i == 2) { if (secaoValidas[1][j] == secao) { if (contVotacao2 > 9)
-	 * { System.out.println("Limite de votos da sala 1 atingido"); } else { Integer
-	 * codCandidato = EntradaDeDados.inteiro("Digite o codigo do seu candidato: ");
-	 * votacao2[contVotacao2] = new Votacao(secao, codCandidato, numeroEleitor);
-	 * contVotacao2++; escolherSala(); if (contVotacao2 >= 9) {
-	 * MergeSort.mergeSort(10, votacao2); } }
-	 * 
-	 * } else { System.out.println("Se��o invalida"); } }
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
 
 	public static void escolherSala() {
 		int sala;
 		do {
-			sala = EntradaDeDados.inteiro("1 - sala 1 \n" + " 2 -  sala 2\n" + "9 - Voltar tela anterior\n");
+			sala = EntradaDeDados.inteiro("---------------------------\n" + "     Menu de Votação\n"
+					+ "---------------------------\n" + "1 - Sala 1 \n" + "2 - Sala 2\n"
+					+ "9 - Voltar tela anterior\n\n" + "Digite a opção desejada:");
+			Menu.clear();
 			switch (sala) {
 			case 1:
-				votacao1[contVotacao1] = new Votacao();
-				contVotacao1 = cadastrarVotacao(0, votacao1, contVotacao1);				
+				contVotacao1 = cadastrarVotacao(0, contVotacao1);
 				break;
 			case 2:
-				votacao2[contVotacao2] = new Votacao();
-				contVotacao2 = cadastrarVotacao(1, votacao2, contVotacao2);
+
+				contVotacao2 = cadastrarVotacao(1, contVotacao2);
 				break;
 			case 9:
 
 			default:
-				System.out.println("Op��o invalida");
+				System.out.println("Opção invalida");
 
 			}
 		} while (sala != 9);
@@ -211,15 +153,15 @@ public class VotacaoService {
 	}
 
 	public static void agruparApuracao() {
-		apuracao = MergeSort.mergeSort(votacao1, votacao2);
+		apuracao = MergeSort.mergeSort(io.LerDadosVotacao("votacao1.csv"), io.LerDadosVotacao("votacao2.csv"));
 		resultado = calcularResultado(resultado);
 
 	}
 
 	public static void exibirEleitores() {
 		agruparApuracao();
-		for (int i = 0; i < apuracao.length; i++) {
-			System.out.println(EleitorService.buscarEleitorPorNumeroEleitor(apuracao[i].getNumeroEleitor()));
+		for (int i = 0; i < apuracao.size(); i++) {
+			System.out.println(EleitorService.buscarEleitorPorNumeroEleitor(apuracao.get(i).getNumeroEleitor()));
 		}
 
 	}
@@ -230,35 +172,20 @@ public class VotacaoService {
 	}
 
 	public static Candidato[] calcularResultado(Candidato[] resultado) {
-		int candidatoAux = apuracao[0].getCodCandidato();
-		int votos = 0, j = 0, nulos = 0;
-		for (int i = 0; i < MergeSort.ultimaCasaVetor(apuracao); i++) {
 
-			if (apuracao[i].getCodCandidato() == candidatoAux) {
-				votos++;
-				if (i == MergeSort.ultimaCasaVetor(apuracao) - 1) {
-					resultado[j] = new Candidato(candidatoService.buscarCandidatoPorCodigo(candidatoAux), votos);
-				}
-
-			} else {
-				if (i == MergeSort.ultimaCasaVetor(apuracao) - 1) {
-					resultado[j] = new Candidato(candidatoService.buscarCandidatoPorCodigo(candidatoAux), votos);
-				}
-
-				if (!candidatoNaoNulo(apuracao[i].getCodCandidato())) {
-					nulos++;
-				} else {
-
-					resultado[j] = new Candidato(candidatoService.buscarCandidatoPorCodigo(candidatoAux), votos);
-					j++;
-					candidatoAux = apuracao[i].getCodCandidato();
-					votos = 1;
+		for (Candidato candidato : resultado) {
+			boolean encontrou = false;
+			for (int i = 0; i < apuracao.size(); i++) {
+				if (apuracao.get(i).getCodCandidato() == candidato.getCodigoCandidato()) {
+					candidato.setQuantidadeDeVotos(candidato.getQuantidadeDeVotos() + 1);
+					encontrou = true;
 				}
 			}
-
+			if (!encontrou) {
+				resultado[1].setQuantidadeDeVotos(candidato.getQuantidadeDeVotos() + 1);
+			}
 		}
-		j++;
-		resultado[j] = new Candidato("Nulos", 99, nulos);
+
 		ordernarResultado();
 
 		return resultado;
@@ -270,20 +197,16 @@ public class VotacaoService {
 		boolean parar;
 		do {
 			parar = true;
-			for (int i = 0; i < MergeSort.ultimaCasaVetor(resultado) - 3; i++) {
-				if (resultado[i].getNome().equals("Branco")) {
-					aux = resultado[i];
-					resultado[i] = resultado[resultado.length - 2];
-					resultado[resultado.length - 2] = aux;
-					parar = false;
-				} else {
+			for (int i = 2; i < MergeSort.ultimaCasaVetor(resultado)-1 ; i++) {
+				
+				
 					if (resultado[i].getQuantidadeDeVotos() < resultado[i + 1].getQuantidadeDeVotos()) {
 						aux = resultado[i];
 						resultado[i] = resultado[i + 1];
 						resultado[i + 1] = aux;
 						parar = false;
 
-					}
+					
 				}
 			}
 		} while (!parar);
@@ -295,6 +218,11 @@ public class VotacaoService {
 		} else {
 			return false;
 		}
+	}
+	
+	public static void excluirVotacao() throws IOException {
+		io.excluirDados("votacao1.csv");
+		io.excluirDados("votacao2.csv");
 	}
 
 }

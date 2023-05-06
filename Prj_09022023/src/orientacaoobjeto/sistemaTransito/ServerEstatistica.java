@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ServerEstatistica {
+	private static Scanner le;
+
 	public static void cadastrarEstatisticas() throws IOException {
 		Estatistica[] estatistica = new Estatistica[10];
-		Scanner le = new Scanner(System.in);
+		le = new Scanner(System.in);
 
 		for (int i = 0; i < 2; i++) {
 			System.out.println("Digite o codigo da cidade:");

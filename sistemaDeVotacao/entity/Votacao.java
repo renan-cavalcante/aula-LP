@@ -31,6 +31,10 @@ public class Votacao {
 	public String toString() { 
 		return secao + "             " + codCandidato +"              "+ numeroEleitor;
 	}
+	
+	public String toStringCSV() { 
+		return secao + "," + codCandidato +","+ numeroEleitor;
+	}
 
 	
 }
