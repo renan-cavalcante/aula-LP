@@ -1,12 +1,4 @@
-/application/
-/orientacaoobjeto/
-/service/
 /entity/
-/enums/
-/estudos/
-/listalp/
-/lote1/
-/lote2/
-/lote3/
-/teste/
-/.project
+/service/
+/dados/
+/application/
