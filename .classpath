@@ -3,7 +3,11 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="Prj_09022023/src"/>
 	<classpathentry kind="src" path="sistemaDeVotacao"/>
+<<<<<<< Updated upstream
 	<classpathentry kind="src" path="gravacaoDeDados"/>
 	<classpathentry kind="src" path="contacorrente"/>
+=======
+	<classpathentry kind="src" path="estatisticaVotacao"/>
+>>>>>>> Stashed changes
 	<classpathentry kind="output" path="Prj_09022023/build/classes"/>
 </classpath>

@@ -62,8 +62,12 @@ public class ContaServe {
 	}
 	
 	public void atualiarContas() {
-		List<Conta> contas = io.lerDadosContas("conta.csv");
+		List<Conta> contas = new ArrayList<>();
+		contas = io.lerDadosContas("conta.csv");
 		List<MovimentoConta> movimentos = io.lerDadosMovimentos("movimentos.csv");
+		
+		contas.sort((conta1, conta2) -> Integer.compare(conta1.getCodigoConta(),conta2.getCodigoConta()));
+
 		int indice = 0;
 		
 		for(int i = 0; i < contas.size(); i++) {

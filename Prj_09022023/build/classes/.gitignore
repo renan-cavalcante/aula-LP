@@ -1,4 +1,19 @@
+<<<<<<< Updated upstream
 /entity/
 /service/
 /dados/
 /application/
+=======
+/estudos/
+/listalp/
+/lote1/
+/lote2/
+/lote3/
+/orientacaoobjeto/
+/application/
+/entity/
+/enums/
+/service/
+/teste/
+/.gitignore
+>>>>>>> Stashed changes
